@@ -1,0 +1,16 @@
+{
+  "buildCommand": "NODE_OPTIONS='--max-old-space-size=4096' npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "https://ferme-api-production.up.railway.app/api"
+  }
+}
