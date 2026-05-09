@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
-import Home from "../Pages/Home/Index";
+import Home from "../Pages/home/Index";
 import Reservation from "../Pages/Reservation";
 import Dashboard from "../Pages/admin/Dashboard";
 import Navbar from "../components/Navbar";
