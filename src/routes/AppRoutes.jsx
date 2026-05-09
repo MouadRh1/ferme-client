@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import Home from "../pages/Home/Index";
-import Reservation from "../pages/Reservation";
-import Dashboard from "../pages/admin/Dashboard";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import Home from "../Pages/Home/Index";
+import Reservation from "../Pages/Reservation";
+import Dashboard from "../Pages/admin/Dashboard";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Gallery from "../Pages/Gallery";
