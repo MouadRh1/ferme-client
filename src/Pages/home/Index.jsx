@@ -15,10 +15,16 @@ export default function Home() {
   useEffect(() => {
     api
       .get("/farm")
-      .then((res) => setFarm(res.data))
+      .then((res) => setFarm(res.data.farm))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
+
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
 
   if (loading) {
     return (
@@ -42,8 +48,8 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
-      <GallerySection/>
-      <FarmInfo farm={farm} />
+      <GallerySection />
+      {/* <FarmInfo farm={farm} /> */}
       <AmenitiesSection farm={farm} />
       <PricingSection farm={farm} />
       <CTASection />

@@ -5,12 +5,14 @@ import {
   HiOutlineCalendar,
   HiOutlineUsers,
   HiOutlineHome,
+  HiOutlineMail,
 } from "react-icons/hi";
 import api from "../../api/axios";
 import Overview from "./components/Overview";
 import ReservationsTable from "./components/ReservationsTable";
 import UsersTable from "./components/UsersTable";
 import FarmSettings from "./components/FarmSettings";
+import ContactsTable from "./components/ContactsTable";
 
 const TABS = [
   {
@@ -28,7 +30,16 @@ const TABS = [
     label: "Utilisateurs",
     icon: <HiOutlineUsers className="w-4 h-4" />,
   },
-  { id: "farm", label: "Ferme", icon: <HiOutlineHome className="w-4 h-4" /> },
+  {
+    id: "farm",
+    label: "Ferme",
+    icon: <HiOutlineHome className="w-4 h-4" />,
+  },
+  {
+    id: "contacts",
+    label: "Messages",
+    icon: <HiOutlineMail className="w-4 h-4" />,
+  },
 ];
 
 export default function Dashboard() {
@@ -37,7 +48,7 @@ export default function Dashboard() {
   const [users, setUsers] = useState([]);
   const [farm, setFarm] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState("");
+  const [toast, setToast] = useState(null);
 
   const showToast = (msg, type = "success") => {
     setToast({ message: msg, type });
@@ -45,6 +56,7 @@ export default function Dashboard() {
   };
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const [resRes, usersRes, farmRes] = await Promise.all([
         api.get("/reservations"),
@@ -66,15 +78,16 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const handleStatusChange = async (id, status) => {
     try {
-      // Envoyer uniquement le statut de réservation
-      // Le backend gère automatiquement le payment_status
       const response = await api.put(`/reservations/${id}/status`, {
         status: status,
       });
 
-      // Mettre à jour l'état local avec les données retournées par le backend
       if (response.data.reservation) {
         setReservations((prev) =>
           prev.map((r) =>
@@ -84,7 +97,6 @@ export default function Dashboard() {
           ),
         );
       } else {
-        // Fallback : mise à jour manuelle
         setReservations((prev) =>
           prev.map((r) => (r.id === id ? { ...r, status } : r)),
         );
@@ -98,8 +110,6 @@ export default function Dashboard() {
       );
     } catch (error) {
       console.error("Erreur détaillée:", error);
-      console.error("Réponse:", error.response?.data);
-
       const errorMessage =
         error.response?.data?.message ||
         "⚠️ Erreur lors de la mise à jour du statut";
@@ -142,31 +152,58 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Toast Notification */}
-      {toast && (
-        <div
-          className={`fixed top-5 right-5 z-50 px-5 py-3 rounded-2xl shadow-2xl text-sm font-medium flex items-center gap-2 animate-slide-in ${
-            toast.type === "error"
-              ? "bg-red-500 text-white"
-              : "bg-gray-900 text-white"
-          }`}
-        >
-          <span>{toast.message}</span>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--cream)" }}>
+      {/* ==================== HERO SECTION ==================== */}
+      <section className="relative h-[30vh] min-h-[250px] flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: farm?.image
+                ? `url(${farm.image})`
+                : 'url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
+              backgroundPosition: "center 30%",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.5), var(--green-deep) 95%)",
+            }}
+          />
         </div>
-      )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard Admin</h1>
-          <p className="text-gray-400 text-sm mt-1">
-            Ferme Khadija · Gestion complète
+        <div className="relative z-10 w-full text-center text-white px-6">
+          <h1 className="font-display text-4xl md:text-5xl font-light mb-3">
+            <span className="font-semibold" style={{ color: "var(--gold)" }}>
+              Dashboard
+            </span>{" "}
+            Administrateur
+          </h1>
+          <p className="text-base max-w-2xl mx-auto opacity-90">
+            Gérez les réservations, utilisateurs et paramètres de la ferme
           </p>
         </div>
+      </section>
+
+      {/* ==================== CONTENU PRINCIPAL ==================== */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        {/* Toast Notification */}
+        {toast && (
+          <div
+            className={`fixed top-5 right-5 z-50 px-5 py-3 rounded-2xl shadow-2xl text-sm font-medium flex items-center gap-2 animate-slide-in ${
+              toast.type === "error"
+                ? "bg-red-500 text-white"
+                : "bg-gray-900 text-white"
+            }`}
+          >
+            <span>{toast.message}</span>
+          </div>
+        )}
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-white rounded-2xl border border-gray-100 shadow-sm p-1.5 mb-6 overflow-x-auto">
+        <div className="flex flex-wrap gap-1 bg-white rounded-2xl border border-gray-100 shadow-sm p-1.5 mb-6">
           {TABS.map((tab) => (
             <button
               key={tab.id}
@@ -198,9 +235,10 @@ export default function Dashboard() {
         {activeTab === "farm" && (
           <FarmSettings farm={farm} onUpdate={fetchData} />
         )}
+        {activeTab === "contacts" && <ContactsTable />}
       </div>
 
-      {/* Animation CSS pour le toast */}
+      {/* Animation CSS */}
       <style jsx>{`
         @keyframes slideIn {
           from {

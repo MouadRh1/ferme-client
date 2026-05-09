@@ -14,7 +14,8 @@ import {
   HiX,
 } from "react-icons/hi";
 import { PiFlowerLotus } from "react-icons/pi";
-
+import { FaImages } from "react-icons/fa";
+import { FaUserAlt , FaInfoCircle } from "react-icons/fa";
 export default function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const navigate = useNavigate();
@@ -51,10 +52,28 @@ export default function Navbar() {
       always: true,
     },
     {
+      to: "/gallery",
+      label: "Galerie",
+      icon: <FaImages className="w-4 h-4" />,
+      always: true,
+    },
+    {
       to: "/reservation",
       label: "Réserver",
       icon: <HiOutlineCalendar className="w-4 h-4" />,
-      auth: true,
+      always: true,
+    },
+    {
+      to: "/contact",
+      label: "Contact",
+      icon: <FaUserAlt className="w-4 h-4" />,
+      always: true,
+    },
+    {
+      to: "/about",
+      label: "About",
+      icon: <FaInfoCircle className="w-4 h-4" />,
+      always: true,
     },
     {
       to: "/admin",

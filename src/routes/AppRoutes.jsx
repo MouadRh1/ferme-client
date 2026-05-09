@@ -8,7 +8,10 @@ import Reservation from "../pages/Reservation";
 import Dashboard from "../pages/admin/Dashboard";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import Gallery from "../Pages/Gallery";
+import Contact from '../Pages/Contact'
+import FloatingNav from "../components/FloatingNav";
+import About from '../Pages/About'
 // Route privée : utilisateur connecté seulement
 function PrivateRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -30,6 +33,9 @@ export default function AppRoutes() {
       <Routes>
         {/* Routes publiques */}
         <Route path="/" element={<Home />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
@@ -54,6 +60,7 @@ export default function AppRoutes() {
         />
       </Routes>
       <Footer />
+      <FloatingNav/>
     </BrowserRouter>
   );
 }

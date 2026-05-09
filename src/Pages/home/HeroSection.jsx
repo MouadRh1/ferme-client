@@ -13,6 +13,10 @@ import {
 } from "lucide-react";
 import { FaSwimmer } from "react-icons/fa";
 
+import hero1 from "../../assets/maison3.jpeg";
+import hero2 from "../../assets/piscine3.jpeg";
+import hero3 from "../../assets/espace3.jpeg";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -22,24 +26,16 @@ import "swiper/css/navigation";
 // Images de la ferme
 const farmImages = [
   {
-    url: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    url: hero1,
     title: "Vue aérienne de la ferme",
   },
   {
-    url: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    url: hero2,
     title: "Piscine avec vue sur les montagnes",
   },
   {
-    url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2075&q=80",
+    url: hero3,
     title: "Maison traditionnelle rénovée",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    title: "Espace vert et jardin luxuriant",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1598228723793-52759bba239c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    title: "Intérieur moderne et chaleureux",
   },
 ];
 
@@ -88,7 +84,7 @@ export default function HeroSection() {
       />
 
       {/* Navigation buttons personnalisées */}
-      <button
+      {/* <button
         className="swiper-button-prev-custom absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
         style={{
           backgroundColor: "rgba(255,255,255,0.1)",
@@ -133,7 +129,7 @@ export default function HeroSection() {
             d="M9 5l7 7-7 7"
           />
         </svg>
-      </button>
+      </button> */}
 
       {/* Contenu principal */}
       <div className="relative z-20 h-full flex items-center pt-20 lg:pt-24">
@@ -217,7 +213,7 @@ export default function HeroSection() {
                       className="text-3xl font-bold"
                       style={{ color: "var(--gold)" }}
                     >
-                      800
+                      799
                     </span>
                     <span className="text-base">DH</span>
                     <span className="text-white/60 text-xs ml-1">/ nuit</span>
@@ -376,7 +372,7 @@ export default function HeroSection() {
         <button
           onClick={() =>
             document
-              .getElementById("about")
+              .getElementById("gallery")
               ?.scrollIntoView({ behavior: "smooth" })
           }
           className="flex flex-col items-center gap-2 text-white/50 hover:text-white/80 transition"

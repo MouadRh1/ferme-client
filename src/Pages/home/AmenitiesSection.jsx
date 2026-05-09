@@ -1,5 +1,6 @@
 // src/pages/home/AmenitiesSection.jsx
 export default function AmenitiesSection({ farm }) {
+  
   if (!farm) return null;
 
   const allAmenities = [
