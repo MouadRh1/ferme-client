@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://floralwhite-goldfish-966361.hostingersite.com/backend/api", // URL de ton backend en ligne
+  baseURL: "https://floralwhite-goldfish-966361.hostingersite.com/api", // URL de ton backend en ligne
   // baseURL: "https://ferme-api-production.up.railway.app/api", // URL de ton backend en ligne
   // baseURL: "http://localhost:8000/api", // URL de ton backend Laravel
   headers: {
